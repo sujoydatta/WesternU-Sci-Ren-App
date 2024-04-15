@@ -22,8 +22,9 @@ const Faq = () => {
       setLoading(true)
 
       // get faq
-      await axios.get('https://uwo-sr-app-server.herokuapp.com/api/faq/getAllFaq')
+      await axios.get('//localhost:8080/api/faq/getAllFaq')
         .then(res => {
+          console.error(res.data);
           setFaq(res.data);
         })
         .catch(error => {

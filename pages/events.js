@@ -71,7 +71,7 @@ const Events = ({ handleAgendaChange }) => {
       setLoading(true)
 
       // get Events
-      await axios.get('https://uwo-sr-app-server.herokuapp.com/api/data/getAllEvents')
+      await axios.get('//localhost:8080/api/data/getAllEvents')
         .then(res => {
           const eventData = res.data;
           let stageShowEvents = eventData.filter(item => item.isStageShow);

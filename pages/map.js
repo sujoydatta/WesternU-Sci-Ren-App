@@ -15,7 +15,7 @@ const Map = () => {
     useEffect(() => {
     const fetchMap = async () => {
       // get maq
-      await axios.get('https://uwo-sr-app-server.herokuapp.com/api/map/')
+      await axios.get('//localhost:8080/api/map/')
         .then(res => {
           console.log(res.data.url)
           setMap(res.data.url);

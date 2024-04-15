@@ -1,7 +1,8 @@
 import { useEffect, useState, useCallback } from 'react'
-import { StyleSheet, SafeAreaView, StatusBar } from 'react-native';
+import { StyleSheet, SafeAreaView, StatusBar, View, Text, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as SplashScreen from 'expo-splash-screen';
 import {
@@ -55,6 +56,17 @@ const App = () => {
     return null;
   }
 
+  const CustomHeader = ({ title, icon }) => {
+    return (
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerText}>{ title }</Text>
+        <View style={styles.headerIconContainer}>
+          <Image source={icon} style={styles.headerIcon} />
+        </View>
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
       <StatusBar
@@ -67,30 +79,56 @@ const App = () => {
             let iconName;
 
             if (route.name === 'Home') {
-              iconName = focused ? 'ios-home' : 'ios-home-outline';
-            } else if (route.name === 'Events') {
-              iconName = focused ? 'ios-calendar' : 'ios-calendar-outline';
+              iconName = focused ? './assets/settings_inactive.svg' : './assets/settings_inactive.svg';
             } else if (route.name === 'Agenda') {
-              iconName = focused ? 'ios-list' : 'ios-list-outline';
+              iconName = focused ? './assets/Active/agenda_active.svg' : './assets/Inactive/agenda_inactive.svg';
             } else if (route.name === 'Map') {
-              iconName = focused ? 'ios-map' : 'ios-map-outline';
+              iconName = focused ? './assets/Active/map_active.svg' : './assets/Inactive/map_inactive.svg';
+            } else if (route.name === 'Events') {
+              iconName = focused ? './assets/Active/location_active.svg' : './assets/Inactive/location_inactive.svg';
+            } else if (route.name === 'Faq') {
+              iconName = focused ? './assets/Active/FAQ_active.svg' : './assets/Inactive/FAQ_inactive.svg';
             }
-            else if (route.name === 'Faq') {
-              iconName = focused ? 'help' : 'help-outline';
-            }
-            return <Ionicons name={iconName} size={size} color={color} />;
+            // return <Ionicons name={iconName} size={size} color={color} />;
+            // icon = require(iconName);
+            return <Image source={iconName} style={styles.tabIcon} />
           },
-          headerShown: false,
+          headerShown: true,
           tabBarActiveTintColor: '#0BB4A9',
           tabBarInactiveTintColor: 'gray',
           tabBarShowLabel: false,
         })}
         >
-          <Tab.Screen name="Home" component={Home} />
-          <Tab.Screen name="Events" children={() => <Events handleAgendaChange={handleAgendaChange} />} />
-          <Tab.Screen name="Agenda" children={() => <Agenda agendaChange={agendaChange} />} />
-          <Tab.Screen name="Map" component={Map} />
-          <Tab.Screen name="Faq" component={Faq} />
+          <Tab.Screen name="Home" 
+                      component={Home} 
+                      options={{
+                        header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={require('./assets/settings_inactive.svg')} />,
+                      }} 
+          />
+          <Tab.Screen name="Agenda" 
+                      children={() => <Agenda agendaChange={agendaChange} />}
+                      options={{
+                        header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={require('./assets/settings_inactive.svg')} />,
+                      }}
+          />
+          <Tab.Screen name="Map" 
+                      component={Map} 
+                      options={{
+                        header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={require('./assets/settings_inactive.svg')} />,
+                      }}
+          />
+          <Tab.Screen name="Events"
+                      children={() => <Events handleAgendaChange={handleAgendaChange} />} 
+                      options={{
+                        header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={require('./assets/settings_inactive.svg')} />,
+                      }}
+          />
+          <Tab.Screen name="Faq"
+                      component={Faq} 
+                      options={{
+                        header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={require('./assets/settings_inactive.svg')} />,
+                      }}
+          />
         </Tab.Navigator>
       </NavigationContainer>
     </SafeAreaView >
@@ -101,6 +139,36 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#BBDEBF',
+  },
+
+  headerContainer: {
+    display: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    justifyContent: 'space-between',
+  },
+
+  headerText: {
+    marginLeft: 8,
+    textAlign: 'left'
+  },
+
+  headerIconContainer: {
+    padding: 8, // Adjust as needed
+    borderRadius: 24, // Adjust as needed
+  },
+
+  headerIcon: {
+    width: 40,
+    height: 40,
+    resizeMode: 'contain',
+  },
+
+  tabIcon: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
   },
 });
 
