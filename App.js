@@ -32,7 +32,10 @@ const App = () => {
 
   let [fontsLoaded] = useFonts({
     Roboto_400Regular,
-    Roboto_700Bold
+    Roboto_700Bold,
+    'Phosphate_pro': require('./assets/fonts/Phosphate_pro.otf'),
+    'balsamiq-bold': require('./assets/fonts/BalsamiqSans-Bold.ttf'),
+    'balsamiq-regular': require('./assets/fonts/BalsamiqSans-Regular.ttf'),
   })
 
   useEffect(() => {
@@ -78,9 +81,7 @@ const App = () => {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
 
-            if (route.name === 'Home') {
-              iconName = focused ? './assets/settings_inactive.svg' : './assets/settings_inactive.svg';
-            } else if (route.name === 'Agenda') {
+            if (route.name === 'Agenda') {
               iconName = focused ? './assets/Active/agenda_active.svg' : './assets/Inactive/agenda_inactive.svg';
             } else if (route.name === 'Map') {
               iconName = focused ? './assets/Active/map_active.svg' : './assets/Inactive/map_inactive.svg';
@@ -99,12 +100,6 @@ const App = () => {
           tabBarShowLabel: false,
         })}
         >
-          <Tab.Screen name="Home" 
-                      component={Home} 
-                      options={{
-                        header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={require('./assets/settings_inactive.svg')} />,
-                      }} 
-          />
           <Tab.Screen name="Agenda" 
                       children={() => <Agenda agendaChange={agendaChange} />}
                       options={{
@@ -151,7 +146,11 @@ const styles = StyleSheet.create({
 
   headerText: {
     marginLeft: 8,
-    textAlign: 'left'
+    textAlign: 'left',
+    fontFamily: "Phosphate_pro",
+    fontWeight: "inline",
+    fontSize: 24,
+    color: "#8F54E0"
   },
 
   headerIconContainer: {

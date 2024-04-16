@@ -2,12 +2,17 @@ import {
   StyleSheet,
   View,
   Text,
+  Image,
+  Modal,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
   TouchableHighlight
 } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useState, useEffect } from 'react';
 
 const AgendaEventCard = ({ item, removeFromAgendaLists }) => {
-  let { _id: id, title, description, time, isStageShow } = item
+  let { _id: id, title, description, time, isStageShow, performedBy } = item
   let today = new Date()
   let past = today > new Date(time)
   let eventTime = ''
@@ -16,22 +21,51 @@ const AgendaEventCard = ({ item, removeFromAgendaLists }) => {
     eventTime = (new Date(time)).toLocaleString('en-US', { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit' })
   }
 
+  const [infoModalVisible, setInfoModalVisible] = useState(false);
+
   return (
-    <View style={styles.outterContainer}>
-      <View style={[styles.timeContainer]}>
-        <Text style={styles.eventText}>{isStageShow === false ? "All Day" : eventTime}</Text>
-      </View>
-      <View key={id} style={[styles.eventCardContainer, past ? styles.eventPast : styles.eventNotPast]}>
-        <View style={styles.titleDescriptionContainer}>
-          <Text style={styles.eventName}>{title}</Text>
-          <Text style={styles.eventText}>{description}</Text>
-        </View >
-        <TouchableHighlight style={styles.plusButtonView} onPress={() => removeFromAgendaLists(id, isStageShow)}>
-          <View style={styles.plusButtonView}>
-            <Ionicons name={"trash"} size={30} color={'#db394a'} />
+    <View>
+      <TouchableOpacity onPress={() => setInfoModalVisible(true)}>
+        <View style={styles.outterContainer}>
+          <View key={id} style={[styles.eventCardContainer, past ? styles.eventPast : styles.eventNotPast]}>
+            <Text style={styles.eventText}>{isStageShow === false ? title : eventTime}</Text>
+            <View style={styles.titleDescriptionContainer}>
+              <Text style={styles.eventName}>{isStageShow === false ? description : title}</Text>
+            </View >
+            <TouchableHighlight style={styles.plusButtonView} onPress={() => removeFromAgendaLists(id, isStageShow)}>
+              <View style={styles.plusButtonView}>
+                <Image source={require('../assets/remove.svg')} style={styles.stageBoothremoveIcon} />
+              </View>
+            </TouchableHighlight>
           </View>
-        </TouchableHighlight>
-      </View>
+        </View>
+      </TouchableOpacity>
+      <Modal animationType="slide" transparent={true} visible={infoModalVisible} 
+             onRequestClose={() => {setInfoModalVisible(infoModalVisible);}}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalHeaderText}>{ title }</Text>
+              <View style={styles.headerIconContainer}>
+                <TouchableOpacity onPress={() => setInfoModalVisible(false)}>
+                  <Image source={require('../assets/remove_pop-up.svg')} style={styles.stageBoothremoveIcon} />
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={styles.modalBody}>
+              <Text style={styles.modalBodySubHeader}>Full Description</Text>
+              <Text style={styles.modalBodySubcontent}>{description}</Text>
+              {isStageShow === false && performedBy && (
+                <View>
+                  <Text style={styles.modalBodySubHeader}>Who's Performing</Text>
+                  <Text style={styles.modalBodySubcontent}>{description}</Text>
+                </View>
+              )}
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -44,19 +78,25 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     margin: 5,
+    alignItems: 'center',
+    height: "85%",
   },
   eventPast: {
-    backgroundColor: '#D3D3D3',
+    backgroundColor: "#4f2684",
   },
   eventNotPast: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#4f2684",
   },
   eventName: {
-    fontSize: 15,
-    fontFamily: 'Roboto_700Bold',
+    fontSize: 12,
+    fontFamily: 'balsamiq-regular',
+    color: "#FFFCFA",
   },
   eventText: {
-    fontFamily: 'Roboto_400Regular',
+    fontFamily: 'balsamiq-regular',
+    width: "25%",
+    color: "#FFFCFA",
+    fontSize: 12,
   },
   titleDescriptionContainer: {
     flex: 5,
@@ -72,6 +112,65 @@ const styles = StyleSheet.create({
   },
   outterContainer: {
     flexDirection: 'row',
+    margin: '1%',
+    marginBottom: 0,
+    borderRadius: 5,
+  },
+
+  stageBoothremoveIcon: {
+    width: 20,
+    height: 20,
+    resizeMode: 'contain',
+  },
+
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    width: '90%',
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+
+  modalHeader: {
+    marginBottom: 10,
+    backgroundColor: "#c91f39",
+    display: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: "5%",
+    width: "100%"
+  },
+
+  modalHeaderText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    fontFamily: 'balsamiq-bold',
+    color: "#FFFCFA"
+  },
+
+  modalBody: {
+    padding: "5%",
+  },
+
+  modalBodySubHeader: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    fontFamily: 'balsamiq-bold',
+    color: "#1a1a1a",
+    marginBottom: "1%"
+  },
+
+  modalBodySubcontent: {
+    fontSize: 13,
+    fontFamily: 'balsamiq-regular',
+    color: "#1a1a1a",
+    marginBottom: "3%"
   }
 });
 
