@@ -148,7 +148,6 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     textAlign: 'left',
     fontFamily: "Phosphate_pro",
-    fontWeight: "inline",
     fontSize: 28,
     color: "#4f2684"
   },

@@ -288,7 +288,6 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     textAlign: 'left',
     fontFamily: "balsamiq-bold",
-    fontWeight: "inline",
     fontSize: 14,
     color: "#1A1A1A"
   },
