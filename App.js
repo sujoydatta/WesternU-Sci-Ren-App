@@ -101,7 +101,7 @@ const App = () => {
         })}
         >
           <Tab.Screen name="Agenda" 
-                      children={() => <Agenda agendaChange={agendaChange} />}
+                      children={() => <Agenda agendaChange={agendaChange} handleAgendaChange={handleAgendaChange} />}
                       options={{
                         header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={require('./assets/settings_inactive.svg')} />,
                       }}
@@ -149,8 +149,8 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontFamily: "Phosphate_pro",
     fontWeight: "inline",
-    fontSize: 24,
-    color: "#8F54E0"
+    fontSize: 28,
+    color: "#4f2684"
   },
 
   headerIconContainer: {

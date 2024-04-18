@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   },
 
   modalBodySubHeader: {
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: 'bold',
     fontFamily: 'balsamiq-bold',
     color: "#1a1a1a",
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   },
 
   modalBodySubcontent: {
-    fontSize: 13,
+    fontSize: 12,
     fontFamily: 'balsamiq-regular',
     color: "#1a1a1a",
     marginBottom: "3%"

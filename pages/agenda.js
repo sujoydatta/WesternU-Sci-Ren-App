@@ -6,19 +6,28 @@ import {
   FlatList,
   SafeAreaView,
   ImageBackground,
-  ScrollView,
+  TouchableOpacity,
   Modal,
   Image,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import AgendaEventCard from '../components/agendaEventCard';
+import EventCard from '../components/eventCard';
 import { LinearGradient } from 'expo-linear-gradient';
-// import { bgImage } from '../images/images';
 
-const Agenda = ({ agendaChange }) => {
-  const [agendaStageShows, setStageShows] = useState([])
-  const [agendaBooths, setBooths] = useState([])
+const axios = require('axios').default;
+
+const Agenda = ({ agendaChange, handleAgendaChange }) => {
+  const [agendaStageShows, setAgendaStageShows] = useState([])
+  const [agendaBooths, setAgendaBooths] = useState([])
+
+  const [addShowModalVisible, setAddShowModalVisible] = useState(false);
+  const [addBoothModalVisible, setAddBoothModalVisible] = useState(false);
+
+  const [stageShows, setStageShows] = useState([])
+  const [booths, setBooths] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const setEmptyAgendaLists = async () => {
     try {
@@ -43,8 +52,8 @@ const Agenda = ({ agendaChange }) => {
       const stringBoothAgendaList = await AsyncStorage.getItem('boothAgendaList')
       let stageShowAgendaList = JSON.parse(stringStageShowAgendaList)
       let boothAgendaList = JSON.parse(stringBoothAgendaList)
-      setStageShows(stageShowAgendaList)
-      setBooths(boothAgendaList)
+      setAgendaStageShows(stageShowAgendaList)
+      setAgendaBooths(boothAgendaList)
 
     } catch (e) {
       console.error("error setting the agenda items:", e)
@@ -70,10 +79,67 @@ const Agenda = ({ agendaChange }) => {
     return timeA - timeB;
   };
 
+  const eventAddModal = (data, setMode, modalType) => {
+    return (
+      <Modal animationType="slide" transparent={true} visible={modalType} 
+             onRequestClose={() => {setMode(modalType);}}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalHeaderText}>Add to Schedule</Text>
+              <View style={styles.headerIconContainer}>
+                <TouchableOpacity onPress={() => setMode(false)}>
+                  <Image source={require('../assets/remove_pop-up.svg')} style={styles.stageBoothremoveIcon} />
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={styles.modalBody}>
+              <Text style={styles.modalBodySubHeader}>Browse</Text>
+              <FlatList
+                style={styles.flatList}
+                data={data}
+                renderItem={({ item }) => (
+                  <EventCard item={item} handleAgendaChange={handleAgendaChange} />
+                )}
+                keyExtractor={(item) => item._id.toString()}
+              />
+              
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+    );
+  };
+
   useEffect(() => {
     setEmptyAgendaLists()
     getAgendaLists()
   }, [agendaChange])
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      setLoading(true)
+
+      // get Events
+      await axios.get('//localhost:8080/api/data/getAllEvents')
+        .then(res => {
+          const eventData = res.data;
+          let stageShowEvents = eventData.filter(item => item.isStageShow);
+          let boothEvents = eventData.filter(item => !item.isStageShow);
+          setStageShows(stageShowEvents)
+          setBooths(boothEvents)
+        })
+        .catch(error => {
+          console.error(error);
+        });
+
+      setLoading(false)
+    }
+
+    fetchEvents();
+  }, [])
 
   return (
     <SafeAreaView style={styles.safeAreaViewContainer}>
@@ -86,10 +152,13 @@ const Agenda = ({ agendaChange }) => {
             <View style={styles.stageBoothheaderContainer}>
               <Text style={styles.stageBoothheaderText}>Stage Shows & Special Events</Text>
               <View style={styles.stageBoothheaderIconContainer}>
-                <Image source={require('../assets/add.svg')} style={styles.stageBoothheaderIcon} />
+                <TouchableOpacity onPress={() => setAddShowModalVisible(true)}>
+                  <Image source={require('../assets/add.svg')} style={styles.stageBoothheaderIcon} />
+                </TouchableOpacity>
+                {eventAddModal(stageShows, setAddShowModalVisible, addShowModalVisible)}
               </View>
             </View>
-            {agendaStageShows.length === 0 && (
+            {!agendaStageShows || (agendaStageShows && agendaStageShows.length === 0) && (
               <View style={styles.stageBoothEmptyCartContainer}>
                 <View style={styles.stageBoothEmptyCart}>
                   <Text style={styles.stageBoothEmptyCartNothing}>Nothing to see here!</Text>
@@ -112,10 +181,13 @@ const Agenda = ({ agendaChange }) => {
             <View style={styles.stageBoothheaderContainer}>
               <Text style={styles.stageBoothheaderText}>Saved Booths</Text>
               <View style={styles.stageBoothheaderIconContainer}>
-                <Image source={require('../assets/add.svg')} style={styles.stageBoothheaderIcon} />
+                <TouchableOpacity onPress={() => setAddBoothModalVisible(true)}>
+                  <Image source={require('../assets/add.svg')} style={styles.stageBoothheaderIcon} />
+                </TouchableOpacity>
+                {eventAddModal(booths, setAddBoothModalVisible, addBoothModalVisible)}
               </View>
             </View>
-            {agendaBooths.length === 0 && (
+            {!agendaBooths || (agendaBooths && agendaBooths.length === 0) && (
               <View style={styles.stageBoothEmptyCartContainer}>
                 <View style={styles.stageBoothEmptyCart}>
                   <Text style={styles.stageBoothEmptyCartNothing}>Nothing to see here!</Text>
@@ -150,7 +222,7 @@ const styles = StyleSheet.create({
 
   },
   title: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     paddingTop: 20,
     fontFamily: 'balsamiq-bold',
@@ -162,7 +234,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontFamily: 'Roboto_700Bold',
-    fontSize: 15,
+    fontSize: 14,
     paddingBottom: 5,
   },
   text: {
@@ -176,7 +248,7 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     paddingBottom: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 22,
   },
   loadingView: {
     flex: 1,
@@ -211,7 +283,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontFamily: "balsamiq-bold",
     fontWeight: "inline",
-    fontSize: 16,
+    fontSize: 14,
     color: "#1A1A1A"
   },
 
@@ -248,6 +320,58 @@ const styles = StyleSheet.create({
   stageBoothEmptyCartOther: {
     fontFamily: "balsamiq-regular",
     color: "#cac5c4",
+  },
+
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    width: '90%',
+    height: "70%",
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+
+  modalHeader: {
+    marginBottom: 10,
+    backgroundColor: "#c91f39",
+    display: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: "5%",
+    width: "100%"
+  },
+
+  modalHeaderText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    fontFamily: 'balsamiq-bold',
+    color: "#FFFCFA"
+  },
+
+  modalBody: {
+    padding: "5%",
+    height: "85%",
+  },
+
+  modalBodySubHeader: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    fontFamily: 'balsamiq-bold',
+    color: "#1a1a1a",
+    marginBottom: "1%"
+  },
+
+  modalBodySubcontent: {
+    fontSize: 12,
+    fontFamily: 'balsamiq-regular',
+    color: "#1a1a1a",
+    marginBottom: "3%"
   }
 });
 
