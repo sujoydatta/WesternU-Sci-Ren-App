@@ -137,7 +137,6 @@ const styles = StyleSheet.create({
   },
 
   headerContainer: {
-    display: 1,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'white',
