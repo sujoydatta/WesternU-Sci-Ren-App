@@ -13,7 +13,7 @@ import {
 import { registerForPushNotifications, listenForNotifications } from './utility/pushNotificationService'
 
 import Home from './pages/home';
-import Events from './pages/events';
+import Location from './pages/location';
 import Map from './pages/map';
 import Faq from './pages/faq';
 import Agenda from './pages/agenda';
@@ -85,7 +85,7 @@ const App = () => {
               iconName = focused ? './assets/Active/agenda_active.svg' : './assets/Inactive/agenda_inactive.svg';
             } else if (route.name === 'Map') {
               iconName = focused ? './assets/Active/map_active.svg' : './assets/Inactive/map_inactive.svg';
-            } else if (route.name === 'Events') {
+            } else if (route.name === 'Location') {
               iconName = focused ? './assets/Active/location_active.svg' : './assets/Inactive/location_inactive.svg';
             } else if (route.name === 'Faq') {
               iconName = focused ? './assets/Active/FAQ_active.svg' : './assets/Inactive/FAQ_inactive.svg';
@@ -112,8 +112,8 @@ const App = () => {
                         header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={require('./assets/settings_inactive.svg')} />,
                       }}
           />
-          <Tab.Screen name="Events"
-                      children={() => <Events handleAgendaChange={handleAgendaChange} />} 
+          <Tab.Screen name="Location"
+                      component={Location} 
                       options={{
                         header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={require('./assets/settings_inactive.svg')} />,
                       }}

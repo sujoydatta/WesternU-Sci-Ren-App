@@ -15,7 +15,7 @@ const Map = () => {
     useEffect(() => {
     const fetchMap = async () => {
       // get maq
-      await axios.get('//localhost:8080/api/map/')
+      await axios.get('https://western-sciren-server.vercel.app/api/map/')
         .then(res => {
           console.log(res.data.url)
           setMap(res.data.url);

@@ -79,6 +79,13 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
     return timeA - timeB;
   };
 
+  const sortedShowData = (data) => {
+    if (data) {
+      return data.sort((a, b) => compareTime(a.time, b.time));
+    }
+    return {};
+  };
+
   const eventAddModal = (data, setMode, modalType) => {
     return (
       <Modal animationType="slide" transparent={true} visible={modalType} 
@@ -123,7 +130,7 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
       setLoading(true)
 
       // get Events
-      await axios.get('//localhost:8080/api/data/getAllEvents')
+      await axios.get('https://western-sciren-server.vercel.app/api/data/getAllEvents')
         .then(res => {
           const eventData = res.data;
           let stageShowEvents = eventData.filter(item => item.isStageShow);
@@ -169,7 +176,7 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
             )}
             <FlatList
               style={styles.flatList}
-              data={agendaStageShows.sort((a, b) => compareTime(a.time, b.time))}
+              data={sortedShowData(agendaStageShows)}
               renderItem={({ item }) => (
                 <AgendaEventCard item={item} removeFromAgendaLists={removeFromAgendaLists} />
               )}
@@ -219,7 +226,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-
   },
   title: {
     fontSize: 18,

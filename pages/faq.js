@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 const axios = require('axios').default;
+import { LinearGradient } from 'expo-linear-gradient';
 
 import FaqCard from '../components/faqCard';
 import { bgImage } from '../images/images';
@@ -22,7 +23,7 @@ const Faq = () => {
       setLoading(true)
 
       // get faq
-      await axios.get('//localhost:8080/api/faq/getAllFaq')
+      await axios.get('https://western-sciren-server.vercel.app/api/faq/getAllFaq')
         .then(res => {
           console.error(res.data);
           setFaq(res.data);
@@ -40,9 +41,11 @@ const Faq = () => {
 
   return (
     <SafeAreaView style={styles.safeAreaViewContainer}>
-      <ImageBackground source={bgImage} resizeMode="cover" style={styles.bgImage}>
+      <LinearGradient colors={['#c91f39', '#4f2684']} style={styles.background}>
         <View style={styles.container}>
-          <Text style={styles.title}>Frequently Asked Questions</Text>
+          <Text style={styles.title}>
+            Location and Event Information
+          </Text>
           {loading && (
             <View style={styles.loadingView}>
               <ActivityIndicator size="large" color="hsv(0°, 0%, 75%)" />
@@ -57,7 +60,7 @@ const Faq = () => {
             keyExtractor={(item) => item._id.toString()}
           />}
         </View>
-      </ImageBackground>
+      </LinearGradient>
     </SafeAreaView>
   );
 }
@@ -67,28 +70,34 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#EFFFFD',
   },
+
   container: {
     flex: 1,
+    flexDirection: 'column',
   },
+
+  background: {
+    flex: 1,
+    paddingBottom: 10,
+    paddingHorizontal: 22,
+  },
+
   title: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     paddingTop: 20,
-    marginBottom: 10,
-    fontFamily: 'Roboto_700Bold',
+    fontFamily: 'balsamiq-bold',
+    color: "#FFFCFA"
   },
+
   text: {
     fontFamily: 'Roboto_400Regular',
   },
+
   flatList: {
     flex: 1,
   },
-  bgImage: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingBottom: 10,
-    paddingHorizontal: 20,
-  },
+
   loadingView: {
     flex: 1,
     justifyContent: 'center'
