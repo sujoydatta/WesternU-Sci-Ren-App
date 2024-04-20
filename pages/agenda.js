@@ -276,7 +276,6 @@ const styles = StyleSheet.create({
   },
 
   stageBoothheaderContainer: {
-    display: 1,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'white',
@@ -288,7 +287,6 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     textAlign: 'left',
     fontFamily: "balsamiq-bold",
-    fontWeight: "inline",
     fontSize: 14,
     color: "#1A1A1A"
   },
@@ -345,7 +343,6 @@ const styles = StyleSheet.create({
   modalHeader: {
     marginBottom: 10,
     backgroundColor: "#c91f39",
-    display: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

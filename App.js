@@ -18,6 +18,18 @@ import Map from './pages/map';
 import Faq from './pages/faq';
 import Agenda from './pages/agenda';
 
+import {
+  settings_inactive,
+  agenda_active,
+  agenda_inactive,
+  map_active,
+  map_inactive,
+  location_active,
+  location_inactive,
+  FAQ_active,
+  FAQ_inactive
+} from './images/images';
+
 SplashScreen.preventAutoHideAsync();
 
 const Tab = createBottomTabNavigator();
@@ -82,13 +94,13 @@ const App = () => {
             let iconName;
 
             if (route.name === 'Agenda') {
-              iconName = focused ? './assets/Active/agenda_active.svg' : './assets/Inactive/agenda_inactive.svg';
+              iconName = focused ? agenda_active : agenda_inactive;
             } else if (route.name === 'Map') {
-              iconName = focused ? './assets/Active/map_active.svg' : './assets/Inactive/map_inactive.svg';
+              iconName = focused ? map_active : map_inactive;
             } else if (route.name === 'Location') {
-              iconName = focused ? './assets/Active/location_active.svg' : './assets/Inactive/location_inactive.svg';
+              iconName = focused ? location_active : location_inactive;
             } else if (route.name === 'Faq') {
-              iconName = focused ? './assets/Active/FAQ_active.svg' : './assets/Inactive/FAQ_inactive.svg';
+              iconName = focused ? FAQ_active : FAQ_inactive;
             }
             // return <Ionicons name={iconName} size={size} color={color} />;
             // icon = require(iconName);
@@ -103,25 +115,25 @@ const App = () => {
           <Tab.Screen name="Agenda" 
                       children={() => <Agenda agendaChange={agendaChange} handleAgendaChange={handleAgendaChange} />}
                       options={{
-                        header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={require('./assets/settings_inactive.svg')} />,
+                        header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={settings_inactive} />,
                       }}
           />
           <Tab.Screen name="Map" 
                       component={Map} 
                       options={{
-                        header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={require('./assets/settings_inactive.svg')} />,
+                        header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={settings_inactive} />,
                       }}
           />
           <Tab.Screen name="Location"
                       component={Location} 
                       options={{
-                        header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={require('./assets/settings_inactive.svg')} />,
+                        header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={settings_inactive} />,
                       }}
           />
           <Tab.Screen name="Faq"
                       component={Faq} 
                       options={{
-                        header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={require('./assets/settings_inactive.svg')} />,
+                        header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={settings_inactive} />,
                       }}
           />
         </Tab.Navigator>
@@ -137,7 +149,6 @@ const styles = StyleSheet.create({
   },
 
   headerContainer: {
-    display: 1,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'white',
@@ -148,7 +159,6 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     textAlign: 'left',
     fontFamily: "Phosphate_pro",
-    fontWeight: "inline",
     fontSize: 28,
     color: "#4f2684"
   },
