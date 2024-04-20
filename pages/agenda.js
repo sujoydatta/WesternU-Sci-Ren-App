@@ -165,7 +165,7 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
                 {eventAddModal(stageShows, setAddShowModalVisible, addShowModalVisible)}
               </View>
             </View>
-            {!agendaStageShows || (agendaStageShows && agendaStageShows.length === 0) && (
+            {(!agendaStageShows || (agendaStageShows && agendaStageShows.length === 0)) ? (
               <View style={styles.stageBoothEmptyCartContainer}>
                 <View style={styles.stageBoothEmptyCart}>
                   <Text style={styles.stageBoothEmptyCartNothing}>Nothing to see here!</Text>
@@ -173,7 +173,7 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
                   <Text style={styles.stageBoothEmptyCartOther}>top-right to add new items</Text>
                 </View>
               </View>
-            )}
+            ) : (
             <FlatList
               style={styles.flatList}
               data={sortedShowData(agendaStageShows)}
@@ -181,7 +181,7 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
                 <AgendaEventCard item={item} removeFromAgendaLists={removeFromAgendaLists} />
               )}
               keyExtractor={(item) => item._id.toString()}
-            />
+            />)}
           </View>
 
           <View style={styles.stageBooth}>
@@ -194,7 +194,7 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
                 {eventAddModal(booths, setAddBoothModalVisible, addBoothModalVisible)}
               </View>
             </View>
-            {!agendaBooths || (agendaBooths && agendaBooths.length === 0) && (
+            {(!agendaBooths || (agendaBooths && agendaBooths.length === 0)) ? (
               <View style={styles.stageBoothEmptyCartContainer}>
                 <View style={styles.stageBoothEmptyCart}>
                   <Text style={styles.stageBoothEmptyCartNothing}>Nothing to see here!</Text>
@@ -202,7 +202,7 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
                   <Text style={styles.stageBoothEmptyCartOther}>top-right to add new items</Text>
                 </View>
               </View>
-            )}
+            ) : (
             <FlatList
               style={styles.flatList}
               data={agendaBooths}
@@ -210,7 +210,7 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
                 <AgendaEventCard item={item} removeFromAgendaLists={removeFromAgendaLists} />
               )}
               keyExtractor={(item) => item._id.toString()}
-            />
+            />)}
           </View>
         </View>
       </LinearGradient>
@@ -317,8 +317,8 @@ const styles = StyleSheet.create({
     fontFamily: "balsamiq-bold",
     fontSize: 20,
     color: "#cac5c4",
-    marginTop: "45%",
-    marginBottom: "5%",
+    // marginTop: "45%",
+    marginBottom: "4%",
   },
 
   stageBoothEmptyCartOther: {
@@ -337,7 +337,6 @@ const styles = StyleSheet.create({
     height: "70%",
     backgroundColor: '#fff',
     borderRadius: 5,
-    alignItems: 'center',
   },
 
   modalHeader: {

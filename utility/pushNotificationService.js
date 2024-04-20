@@ -1,6 +1,7 @@
 import * as Notifications from 'expo-notifications'
 import * as Device from 'expo-device';
 const axios = require('axios').default;
+import {Platform} from 'react-native';
 
 export const registerForPushNotifications = async () => {
 
