@@ -20,7 +20,13 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "app.westernuscirenapp",
-      "buildNumber": "1.1.3"
+      "buildNumber": "1.1.3",
+      "config": {
+        "googleMapsApiKey": "AIzaSyAhhfrvIcc4WgJnb5IS2IQW91PDfY1zu78"
+      },
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This app needs access to your location to provide you event location and navigation to the event location from your location."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -30,6 +36,11 @@
       "package": "app.westernuscirenapp",
       "googleServicesFile": "./google-services.json",
       "versionCode": 21,
+      "config": {
+        "googleMaps": {
+          "apiKey" : "AIzaSyAhhfrvIcc4WgJnb5IS2IQW91PDfY1zu78"
+        }
+      },
       "permissions": [
         "RECEIVE_BOOT_COMPLETED"
       ]

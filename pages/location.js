@@ -15,11 +15,10 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { additionalDetails } from '../utility/additionalDetails';
 import { accessibilityInformation } from '../utility/accessibilityInformation';
 import MapView, { Marker } from 'react-native-maps';
-
+import { PROVIDER_GOOGLE } from 'react-native-maps';
 
 const Location = () => {
-  const myLocation = {latitude: 43.00038916595654, longitude: -81.27356036561427};
-  // const [myLocation, setMyLocation] = useState(initialLocation);
+  const myLocation = {latitude: 42.99987147136105, longitude: -81.27380136807624};
 
   const bulletRow = (item) => {
     return (
@@ -35,8 +34,8 @@ const Location = () => {
   return (
     <SafeAreaView style={styles.safeAreaViewContainer}>
       <LinearGradient colors={['#c91f39', '#4f2684']} style={styles.background}>
-        <View style={styles.container}>
-          <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.container}>
             <Text style={styles.title}>
               Location and Event Information
             </Text>
@@ -46,10 +45,10 @@ const Location = () => {
                 initialRegion={{
                   latitude: myLocation.latitude,
                   longitude: myLocation.longitude,
-                  latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0721,
+                  latitudeDelta: 0.0122,
+                  longitudeDelta: 0.0021,
                 }} 
-                provider="google"
+                provider={PROVIDER_GOOGLE}
               >
                 { myLocation.latitude && myLocation.longitude &&
                   <Marker
@@ -57,8 +56,8 @@ const Location = () => {
                       latitude: myLocation.latitude,
                       longitude: myLocation.longitude
                     }}
-                    title='My current location'
-                    description='I am here'
+                    title='Alumni Stadium'
+                    description='Science Rendezvous Event Location'
                   />
                 }
               </MapView>
@@ -78,8 +77,8 @@ const Location = () => {
               <Text style={styles.subHeading}>Accessibility Information:</Text>
               {accessibilityInformation.map(item => bulletRow(item))}
             </View>
-          </ScrollView>
-        </View>
+          </View>
+        </ScrollView>
       </LinearGradient>
     </SafeAreaView>
   );
@@ -169,6 +168,7 @@ const styles = StyleSheet.create({
   bulletItem: {
     flexDirection: 'row',
     marginBottom: 5,
+    paddingRight: 20
   },
 
   bullet: {
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
   mapInfoCard: {
     backgroundColor: "#FFFCFA",
     borderRadius: 5,
-    height: "40%",
+    height: 300,
     marginTop: "4%",
   },
 
