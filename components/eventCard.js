@@ -97,10 +97,10 @@ const styles = StyleSheet.create({
     height: "85%",
   },
   eventPast: {
-    backgroundColor: "#acacac",
+    backgroundColor: "#8d8d8d",
   },
   eventNotPast: {
-    backgroundColor: "#acacac",
+    backgroundColor: "#8d8d8d",
   },
   eventName: {
     fontSize: 12,

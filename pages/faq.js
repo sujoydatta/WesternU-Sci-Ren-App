@@ -44,7 +44,18 @@ const Faq = () => {
       <LinearGradient colors={['#c91f39', '#4f2684']} style={styles.background}>
         <View style={styles.container}>
           <Text style={styles.title}>
-            Location and Event Information
+            Contact Us!
+          </Text>
+          <View style={styles.contactContainer}>
+            <Text style={styles.question}>Want to get in touch?</Text>
+            <View style={styles.answerContainer}>
+              <Text style={styles.answerText}>
+                Email us at sr-comms@uwo.ca and we will do our best to get back to you in couple business days.
+              </Text>
+            </View>
+          </View>
+          <Text style={styles.title}>
+            FAQ - Frequently Asked Questions
           </Text>
           {loading && (
             <View style={styles.loadingView}>
@@ -102,6 +113,33 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center'
   },
+
+  contactContainer: {
+    padding: 20,
+    borderRadius: 5,
+    marginTop: "4%",
+    backgroundColor: '#FFFFFF',
+  },
+
+  question: {
+    fontSize: 14,
+    fontFamily: 'balsamiq-bold',
+    marginBottom: 10,
+  },
+
+  answerContainer: {
+    flexDirection: 'row',
+  },
+
+  answer: {
+    flex: 1,
+  },
+
+  answerText: {
+    flex: 1,
+    fontSize: 12,
+    fontFamily: 'balsamiq-regular',
+  }
 });
 
 export default Faq

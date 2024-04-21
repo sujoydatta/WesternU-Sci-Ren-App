@@ -316,14 +316,13 @@ const styles = StyleSheet.create({
   stageBoothEmptyCartNothing: {
     fontFamily: "balsamiq-bold",
     fontSize: 20,
-    color: "#cac5c4",
-    // marginTop: "45%",
+    color: "#acacac",
     marginBottom: "4%",
   },
 
   stageBoothEmptyCartOther: {
     fontFamily: "balsamiq-regular",
-    color: "#cac5c4",
+    color: "#acacac",
   },
 
   modalContainer: {
