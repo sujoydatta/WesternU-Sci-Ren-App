@@ -10,6 +10,12 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-root-toast';
+import {
+  remove_popup,
+  remove,
+  add,
+  add_white,
+} from '../images/images';
 
 
 const EventCard = ({ item, handleAgendaChange }) => {
@@ -77,7 +83,7 @@ const EventCard = ({ item, handleAgendaChange }) => {
         </View >
         <TouchableHighlight style={styles.plusButtonView} onPress={() => addStageShowToAgenda(item, isStageShow)}>
           <View style={styles.plusButtonView}>
-            <Image source={require('../assets/add_white.svg')} style={styles.stageBoothremoveIcon} />
+            <Image source={add_white} style={styles.stageBoothremoveIcon} />
           </View>
         </TouchableHighlight>
       </View>

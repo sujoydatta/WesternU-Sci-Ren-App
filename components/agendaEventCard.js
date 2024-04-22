@@ -10,6 +10,12 @@ import {
 } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState, useEffect } from 'react';
+import {
+  remove_popup,
+  remove,
+  add,
+  add_white,
+} from '../images/images';
 
 const AgendaEventCard = ({ item, removeFromAgendaLists }) => {
   let { _id: id, title, description, time, isStageShow, performedBy } = item
@@ -34,7 +40,7 @@ const AgendaEventCard = ({ item, removeFromAgendaLists }) => {
             </View >
             <TouchableHighlight style={styles.plusButtonView} onPress={() => removeFromAgendaLists(id, isStageShow)}>
               <View style={styles.plusButtonView}>
-                <Image source={require('../assets/remove.svg')} style={styles.stageBoothremoveIcon} />
+                <Image source={remove} style={styles.stageBoothremoveIcon} />
               </View>
             </TouchableHighlight>
           </View>
@@ -49,7 +55,7 @@ const AgendaEventCard = ({ item, removeFromAgendaLists }) => {
               <Text style={styles.modalHeaderText}>{ title }</Text>
               <View style={styles.headerIconContainer}>
                 <TouchableOpacity onPress={() => setInfoModalVisible(false)}>
-                  <Image source={require('../assets/remove_pop-up.svg')} style={styles.stageBoothremoveIcon} />
+                  <Image source={remove_popup} style={styles.stageBoothremoveIcon} />
                 </TouchableOpacity>
               </View>
             </View>

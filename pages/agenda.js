@@ -15,6 +15,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import AgendaEventCard from '../components/agendaEventCard';
 import EventCard from '../components/eventCard';
 import { LinearGradient } from 'expo-linear-gradient';
+import {
+  remove_popup,
+  remove,
+  add,
+  add_white,
+} from '../images/images';
 
 const axios = require('axios').default;
 
@@ -97,7 +103,7 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
               <Text style={styles.modalHeaderText}>Add to Schedule</Text>
               <View style={styles.headerIconContainer}>
                 <TouchableOpacity onPress={() => setMode(false)}>
-                  <Image source={require('../assets/remove_pop-up.svg')} style={styles.stageBoothremoveIcon} />
+                  <Image source={remove_popup} style={styles.stageBoothremoveIcon} />
                 </TouchableOpacity>
               </View>
             </View>
@@ -160,7 +166,7 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
               <Text style={styles.stageBoothheaderText}>Stage Shows & Special Events</Text>
               <View style={styles.stageBoothheaderIconContainer}>
                 <TouchableOpacity onPress={() => setAddShowModalVisible(true)}>
-                  <Image source={require('../assets/add.svg')} style={styles.stageBoothheaderIcon} />
+                  <Image source={add} style={styles.stageBoothheaderIcon} />
                 </TouchableOpacity>
                 {eventAddModal(stageShows, setAddShowModalVisible, addShowModalVisible)}
               </View>
@@ -189,7 +195,7 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
               <Text style={styles.stageBoothheaderText}>Saved Booths</Text>
               <View style={styles.stageBoothheaderIconContainer}>
                 <TouchableOpacity onPress={() => setAddBoothModalVisible(true)}>
-                  <Image source={require('../assets/add.svg')} style={styles.stageBoothheaderIcon} />
+                  <Image source={add} style={styles.stageBoothheaderIcon} />
                 </TouchableOpacity>
                 {eventAddModal(booths, setAddBoothModalVisible, addBoothModalVisible)}
               </View>
