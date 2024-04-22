@@ -1,7 +1,8 @@
 import { useEffect, useState, useCallback } from 'react'
-import { StyleSheet, SafeAreaView, StatusBar } from 'react-native';
+import { StyleSheet, SafeAreaView, StatusBar, View, Text, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as SplashScreen from 'expo-splash-screen';
 import {
@@ -12,10 +13,22 @@ import {
 import { registerForPushNotifications, listenForNotifications } from './utility/pushNotificationService'
 
 import Home from './pages/home';
-import Events from './pages/events';
+import Location from './pages/location';
 import Map from './pages/map';
 import Faq from './pages/faq';
 import Agenda from './pages/agenda';
+
+import {
+  settings_inactive,
+  agenda_active,
+  agenda_inactive,
+  map_active,
+  map_inactive,
+  location_active,
+  location_inactive,
+  FAQ_active,
+  FAQ_inactive
+} from './images/images';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -31,7 +44,10 @@ const App = () => {
 
   let [fontsLoaded] = useFonts({
     Roboto_400Regular,
-    Roboto_700Bold
+    Roboto_700Bold,
+    'Phosphate_pro': require('./assets/fonts/Phosphate_pro.otf'),
+    'balsamiq-bold': require('./assets/fonts/BalsamiqSans-Bold.ttf'),
+    'balsamiq-regular': require('./assets/fonts/BalsamiqSans-Regular.ttf'),
   })
 
   useEffect(() => {
@@ -55,6 +71,17 @@ const App = () => {
     return null;
   }
 
+  const CustomHeader = ({ title, icon }) => {
+    return (
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerText}>{ title }</Text>
+        <View style={styles.headerIconContainer}>
+          <Image source={icon} style={styles.headerIcon} />
+        </View>
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
       <StatusBar
@@ -66,31 +93,49 @@ const App = () => {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
 
-            if (route.name === 'Home') {
-              iconName = focused ? 'ios-home' : 'ios-home-outline';
-            } else if (route.name === 'Events') {
-              iconName = focused ? 'ios-calendar' : 'ios-calendar-outline';
-            } else if (route.name === 'Agenda') {
-              iconName = focused ? 'ios-list' : 'ios-list-outline';
+            if (route.name === 'Agenda') {
+              iconName = focused ? agenda_active : agenda_inactive;
             } else if (route.name === 'Map') {
-              iconName = focused ? 'ios-map' : 'ios-map-outline';
+              iconName = focused ? map_active : map_inactive;
+            } else if (route.name === 'Location') {
+              iconName = focused ? location_active : location_inactive;
+            } else if (route.name === 'Faq') {
+              iconName = focused ? FAQ_active : FAQ_inactive;
             }
-            else if (route.name === 'Faq') {
-              iconName = focused ? 'help' : 'help-outline';
-            }
-            return <Ionicons name={iconName} size={size} color={color} />;
+            // return <Ionicons name={iconName} size={size} color={color} />;
+            // icon = require(iconName);
+            return <Image source={iconName} style={styles.tabIcon} />
           },
-          headerShown: false,
+          headerShown: true,
           tabBarActiveTintColor: '#0BB4A9',
           tabBarInactiveTintColor: 'gray',
           tabBarShowLabel: false,
         })}
         >
-          <Tab.Screen name="Home" component={Home} />
-          <Tab.Screen name="Events" children={() => <Events handleAgendaChange={handleAgendaChange} />} />
-          <Tab.Screen name="Agenda" children={() => <Agenda agendaChange={agendaChange} />} />
-          <Tab.Screen name="Map" component={Map} />
-          <Tab.Screen name="Faq" component={Faq} />
+          <Tab.Screen name="Agenda" 
+                      children={() => <Agenda agendaChange={agendaChange} handleAgendaChange={handleAgendaChange} />}
+                      options={{
+                        header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={settings_inactive} />,
+                      }}
+          />
+          <Tab.Screen name="Map" 
+                      component={Map} 
+                      options={{
+                        header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={settings_inactive} />,
+                      }}
+          />
+          <Tab.Screen name="Location"
+                      component={Location} 
+                      options={{
+                        header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={settings_inactive} />,
+                      }}
+          />
+          <Tab.Screen name="Faq"
+                      component={Faq} 
+                      options={{
+                        header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={settings_inactive} />,
+                      }}
+          />
         </Tab.Navigator>
       </NavigationContainer>
     </SafeAreaView >
@@ -101,6 +146,38 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#BBDEBF',
+  },
+
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    justifyContent: 'space-between',
+  },
+
+  headerText: {
+    marginLeft: 8,
+    textAlign: 'left',
+    fontFamily: "Phosphate_pro",
+    fontSize: 28,
+    color: "#4f2684"
+  },
+
+  headerIconContainer: {
+    padding: 8, // Adjust as needed
+    borderRadius: 24, // Adjust as needed
+  },
+
+  headerIcon: {
+    width: 40,
+    height: 40,
+    resizeMode: 'contain',
+  },
+
+  tabIcon: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
   },
 });
 

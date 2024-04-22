@@ -15,14 +15,14 @@ const FaqCard = ({ item: { question, answer } }) => {
 const styles = StyleSheet.create({
   faqContainer: {
     flex: 1,
-    padding: 10,
+    padding: 20,
     borderRadius: 5,
-    margin: 5,
+    marginTop: "4%",
     backgroundColor: '#FFFFFF',
   },
   question: {
-    fontSize: 15,
-    fontFamily: 'Roboto_700Bold',
+    fontSize: 14,
+    fontFamily: 'balsamiq-bold',
     marginBottom: 10,
   },
   answerContainer: {
@@ -33,7 +33,8 @@ const styles = StyleSheet.create({
   },
   answerText: {
     flex: 1,
-    fontFamily: 'Roboto_400Regular',
+    fontSize: 12,
+    fontFamily: 'balsamiq-regular',
   }
 });
 

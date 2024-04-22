@@ -1,6 +1,7 @@
 import * as Notifications from 'expo-notifications'
 import * as Device from 'expo-device';
 const axios = require('axios').default;
+import {Platform} from 'react-native';
 
 export const registerForPushNotifications = async () => {
 
@@ -34,7 +35,7 @@ export const registerForPushNotifications = async () => {
     const token = (await Notifications.getExpoPushTokenAsync()).data;
     if (token) {
       console.log('Saving Expo Token:', token);
-      await axios.post('https://uwo-sr-app-server.herokuapp.com/api/expotoken/', {
+      await axios.post('https://western-sciren-server.vercel.app/api/expotoken/', {
         token: token
       })
         .then(res => console.log('Successfully set expo notification token'))
