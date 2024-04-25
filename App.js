@@ -75,9 +75,6 @@ const App = () => {
     return (
       <View style={styles.headerContainer}>
         <Text style={styles.headerText}>{ title }</Text>
-        <View style={styles.headerIconContainer}>
-          <Image source={icon} style={styles.headerIcon} />
-        </View>
       </View>
     );
   };
@@ -160,7 +157,9 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontFamily: "Phosphate_pro",
     fontSize: 28,
-    color: "#4f2684"
+    color: "#4f2684",
+    paddingTop: 8,
+    paddingBottom: 8,
   },
 
   headerIconContainer: {
