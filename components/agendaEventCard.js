@@ -156,7 +156,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     fontFamily: 'balsamiq-bold',
-    color: "#FFFCFA"
+    color: "#FFFCFA",
+    width: "90%"
   },
 
   modalBody: {
@@ -176,6 +177,10 @@ const styles = StyleSheet.create({
     fontFamily: 'balsamiq-regular',
     color: "#1a1a1a",
     marginBottom: "3%"
+  },
+
+  headerIconContainer: {
+    width: "10%"
   }
 });
 
