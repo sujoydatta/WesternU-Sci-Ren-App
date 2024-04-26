@@ -12,7 +12,6 @@ import {
 } from '@expo-google-fonts/roboto';
 import { registerForPushNotifications, listenForNotifications } from './utility/pushNotificationService'
 
-import Home from './pages/home';
 import Location from './pages/location';
 import Map from './pages/map';
 import Faq from './pages/faq';
