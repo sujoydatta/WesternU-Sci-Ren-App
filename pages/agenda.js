@@ -8,6 +8,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   Modal,
+  TextInput,
   Image,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -34,6 +35,8 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
   const [stageShows, setStageShows] = useState([])
   const [booths, setBooths] = useState([])
   const [loading, setLoading] = useState(false)
+
+  const [searchQuery, setSearchQuery] = useState('');
 
   const setEmptyAgendaLists = async () => {
     try {
@@ -93,25 +96,43 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
   };
 
   const eventAddModal = (data, setMode, modalType) => {
+    const filteredData = data.filter(item => {
+      const titleMatches = item.title.toLowerCase().includes(searchQuery.toLowerCase());
+      const descriptionMatches = item.description.toLowerCase().includes(searchQuery.toLowerCase());
+
+      return titleMatches || descriptionMatches;
+    });
+
+    const handleModalHide = () => {
+      setSearchQuery('');
+      setMode(false);
+    };
+
     return (
       <Modal animationType="slide" transparent={true} visible={modalType} 
-             onRequestClose={() => {setMode(modalType);}}
+             onRequestClose={handleModalHide}
+             onDismiss={handleModalHide}
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <View style={styles.modalHeader}>
               <Text style={styles.modalHeaderText}>Add to Schedule</Text>
               <View style={styles.headerIconContainer}>
-                <TouchableOpacity onPress={() => setMode(false)}>
+                <TouchableOpacity onPress={handleModalHide}>
                   <Image source={remove_popup} style={styles.stageBoothremoveIcon} />
                 </TouchableOpacity>
               </View>
             </View>
             <View style={styles.modalBody}>
-              <Text style={styles.modalBodySubHeader}>Browse</Text>
+              <TextInput
+                style={styles.searchBox}
+                placeholder="Search..."
+                onChangeText={text => setSearchQuery(text)}
+                value={searchQuery}
+              />
               <FlatList
                 style={styles.flatList}
-                data={data}
+                data={filteredData}
                 renderItem={({ item }) => (
                   <EventCard item={item} handleAgendaChange={handleAgendaChange} />
                 )}
@@ -168,7 +189,7 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
                 <TouchableOpacity onPress={() => setAddShowModalVisible(true)}>
                   <Image source={add} style={styles.stageBoothheaderIcon} />
                 </TouchableOpacity>
-                {eventAddModal(stageShows, setAddShowModalVisible, addShowModalVisible)}
+                {eventAddModal(sortedShowData(stageShows), setAddShowModalVisible, addShowModalVisible)}
               </View>
             </View>
             {(!agendaStageShows || (agendaStageShows && agendaStageShows.length === 0)) ? (
@@ -364,6 +385,19 @@ const styles = StyleSheet.create({
   modalBody: {
     padding: "5%",
     height: "85%",
+  },
+
+  searchBox: {
+    marginLeft: "3%",
+    marginRight: "3%",
+    marginBottom: 5,
+    height: 40,
+    padding: 5,
+    borderRadius: 5,
+    backgroundColor: "#f4f4f4",
+    fontFamily: 'balsamiq-regular',
+    fontSize: 14,
+    color: "#1a1a1a",
   },
 
   modalBodySubHeader: {

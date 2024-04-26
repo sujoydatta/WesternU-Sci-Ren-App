@@ -1,6 +1,3 @@
-export const homePageDrMaddox = require('../assets/homePageDrMaddox.png');
-export const bgImage = require('../assets/bg.png');
-
 export const agenda_active = require('../assets/active/agenda_active.png');
 export const agenda_inactive = require('../assets/inactive/agenda_inactive.png');
 export const map_active = require('../assets/active/map_active.png');
