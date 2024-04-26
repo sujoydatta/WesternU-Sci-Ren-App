@@ -153,13 +153,13 @@ const styles = StyleSheet.create({
   },
 
   headerText: {
-    marginLeft: 8,
+    marginLeft: 22,
     textAlign: 'left',
     fontFamily: "Phosphate_pro",
     fontSize: 28,
     color: "#4f2684",
-    paddingTop: 8,
-    paddingBottom: 8,
+    paddingTop: 17,
+    paddingBottom: 17,
   },
 
   headerIconContainer: {
