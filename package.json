@@ -17,8 +17,6 @@
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
     "@react-navigation/stack": "^6.3.29",
-    "@unimodules/core": "^7.1.2",
-    "@unimodules/react-native-adapter": "^6.3.9",
     "axios": "^1.6.8",
     "expo": "~50.0.17",
     "expo-device": "~5.9.4",

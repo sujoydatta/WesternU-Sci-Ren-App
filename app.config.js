@@ -1,8 +1,8 @@
-{
+module.exports = {
   "expo": {
     "name": "Western Sci Rendezvous",
     "slug": "WesternUSciRenApp",
-    "version": "1.1.1",
+    "version": "1.1.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -33,8 +33,8 @@
         "backgroundColor": "#BBDEBF"
       },
       "package": "app.westernuscirenapp",
-      "googleServicesFile": "./google-services.json",
-      "versionCode": 21,
+      "googleServicesFile": process.env.googleServices,
+      "versionCode": 23,
       "config": {
         "googleMaps": {
           "apiKey" : "AIzaSyAhhfrvIcc4WgJnb5IS2IQW91PDfY1zu78"
