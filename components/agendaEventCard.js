@@ -14,13 +14,7 @@ import {
 } from '../images/images';
 
 const AgendaEventCard = ({ item, removeFromAgendaLists }) => {
-<<<<<<< HEAD
-  let { _id: id, title, description, time, isStageShow, performedBy } = item
-=======
   let { _id: id, title, description, time, isStageShow, performedBy, boothNo } = item
-  let today = new Date()
-  let past = today > new Date(time)
->>>>>>> e9fdf09e3faac18b824376b69235adf93446e125
   let eventTime = ''
 
   if (time) {
