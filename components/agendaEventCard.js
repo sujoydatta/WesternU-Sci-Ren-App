@@ -14,7 +14,13 @@ import {
 } from '../images/images';
 
 const AgendaEventCard = ({ item, removeFromAgendaLists }) => {
+<<<<<<< HEAD
   let { _id: id, title, description, time, isStageShow, performedBy } = item
+=======
+  let { _id: id, title, description, time, isStageShow, performedBy, boothNo } = item
+  let today = new Date()
+  let past = today > new Date(time)
+>>>>>>> e9fdf09e3faac18b824376b69235adf93446e125
   let eventTime = ''
 
   if (time) {
@@ -56,10 +62,16 @@ const AgendaEventCard = ({ item, removeFromAgendaLists }) => {
             <View style={styles.modalBody}>
               <Text style={styles.modalBodySubHeader}>Full Description</Text>
               <Text style={styles.modalBodySubcontent}>{description}</Text>
-              {isStageShow === false && performedBy && (
+              {performedBy && (
                 <View>
                   <Text style={styles.modalBodySubHeader}>Who's Performing</Text>
-                  <Text style={styles.modalBodySubcontent}>{description}</Text>
+                  <Text style={styles.modalBodySubcontent}>{performedBy}</Text>
+                </View>
+              )}
+              {isStageShow === false && boothNo && (
+                <View>
+                  <Text style={styles.modalBodySubHeader}>Booth No</Text>
+                  <Text style={styles.modalBodySubcontent}>{boothNo}</Text>
                 </View>
               )}
             </View>
@@ -125,7 +137,6 @@ const styles = StyleSheet.create({
     width: '90%',
     backgroundColor: '#fff',
     borderRadius: 5,
-    alignItems: 'center',
   },
 
   modalHeader: {
