@@ -1,8 +1,4 @@
-import { useEffect, useState } from 'react';
 import {
-  ActivityIndicator,
-  FlatList,
-  ImageBackground,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -10,7 +6,6 @@ import {
   Dimensions,
   View
 } from 'react-native';
-import Toast from 'react-native-root-toast';
 import { LinearGradient } from 'expo-linear-gradient';
 import { additionalDetails } from '../utility/additionalDetails';
 import { accessibilityInformation } from '../utility/accessibilityInformation';
@@ -18,7 +13,7 @@ import MapView, { Marker } from 'react-native-maps';
 import { PROVIDER_GOOGLE } from 'react-native-maps';
 
 const Location = () => {
-  const myLocation = {latitude: 42.99987147136105, longitude: -81.27380136807624};
+  const myLocation = { latitude: 42.99987147136105, longitude: -81.27380136807624 };
 
   const bulletRow = (item) => {
     return (
@@ -30,7 +25,7 @@ const Location = () => {
       </View>
     );
   };
-  
+
   return (
     <SafeAreaView style={styles.safeAreaViewContainer}>
       <LinearGradient colors={['#c91f39', '#4f2684']} style={styles.background}>
@@ -40,17 +35,17 @@ const Location = () => {
               Location and Event Information
             </Text>
             <View style={styles.mapInfoCard}>
-              <MapView 
+              <MapView
                 style={styles.map}
                 initialRegion={{
                   latitude: myLocation.latitude,
                   longitude: myLocation.longitude,
                   latitudeDelta: 0.0122,
                   longitudeDelta: 0.0021,
-                }} 
+                }}
                 provider={PROVIDER_GOOGLE}
               >
-                { myLocation.latitude && myLocation.longitude &&
+                {myLocation.latitude && myLocation.longitude &&
                   <Marker
                     coordinate={{
                       latitude: myLocation.latitude,
@@ -65,7 +60,7 @@ const Location = () => {
             <View style={styles.infoCard}>
               <Text style={[styles.address, styles.boldText]}>
                 Address: Western University Alumni Stadium,{"\n"}
-                100 Philip Aziz Ave., London, ON N6A 5P9
+                100 Philip Aziz Ave, London, ON N6A 5P9
               </Text>
               <Text style={styles.boldText}>Time: 2PM - 9:30PM</Text>
             </View>

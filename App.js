@@ -2,8 +2,6 @@ import { useEffect, useState, useCallback } from 'react'
 import { StyleSheet, SafeAreaView, StatusBar, View, Text, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import Ionicons from '@expo/vector-icons/Ionicons';
 import * as SplashScreen from 'expo-splash-screen';
 import {
   useFonts,
@@ -11,12 +9,10 @@ import {
   Roboto_700Bold
 } from '@expo-google-fonts/roboto';
 import { registerForPushNotifications, listenForNotifications } from './utility/pushNotificationService'
-
 import Location from './pages/location';
 import Map from './pages/map';
 import Faq from './pages/faq';
 import Agenda from './pages/agenda';
-
 import {
   settings_inactive,
   agenda_active,
@@ -73,7 +69,7 @@ const App = () => {
   const CustomHeader = ({ title, icon }) => {
     return (
       <View style={styles.headerContainer}>
-        <Text style={styles.headerText}>{ title }</Text>
+        <Text style={styles.headerText}>{title}</Text>
       </View>
     );
   };
@@ -86,7 +82,7 @@ const App = () => {
 
       <NavigationContainer>
         <Tab.Navigator screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
+          tabBarIcon: ({ focused }) => {
             let iconName;
 
             if (route.name === 'Agenda') {
@@ -98,8 +94,6 @@ const App = () => {
             } else if (route.name === 'Faq') {
               iconName = focused ? FAQ_active : FAQ_inactive;
             }
-            // return <Ionicons name={iconName} size={size} color={color} />;
-            // icon = require(iconName);
             return <Image source={iconName} style={styles.tabIcon} />
           },
           headerShown: true,
@@ -108,29 +102,29 @@ const App = () => {
           tabBarShowLabel: false,
         })}
         >
-          <Tab.Screen name="Agenda" 
-                      children={() => <Agenda agendaChange={agendaChange} handleAgendaChange={handleAgendaChange} />}
-                      options={{
-                        header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={settings_inactive} />,
-                      }}
+          <Tab.Screen name="Agenda"
+            children={() => <Agenda agendaChange={agendaChange} handleAgendaChange={handleAgendaChange} />}
+            options={{
+              header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={settings_inactive} />,
+            }}
           />
-          <Tab.Screen name="Map" 
-                      component={Map} 
-                      options={{
-                        header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={settings_inactive} />,
-                      }}
+          <Tab.Screen name="Map"
+            component={Map}
+            options={{
+              header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={settings_inactive} />,
+            }}
           />
           <Tab.Screen name="Location"
-                      component={Location} 
-                      options={{
-                        header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={settings_inactive} />,
-                      }}
+            component={Location}
+            options={{
+              header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={settings_inactive} />,
+            }}
           />
           <Tab.Screen name="Faq"
-                      component={Faq} 
-                      options={{
-                        header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={settings_inactive} />,
-                      }}
+            component={Faq}
+            options={{
+              header: () => <CustomHeader title="SCIENCE RENDEZVOUS" icon={settings_inactive} />,
+            }}
           />
         </Tab.Navigator>
       </NavigationContainer>
@@ -141,7 +135,7 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#BBDEBF',
+    backgroundColor: '#FFFFFF',
   },
 
   headerContainer: {
