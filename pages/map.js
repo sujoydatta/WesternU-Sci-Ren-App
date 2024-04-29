@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
@@ -12,12 +11,11 @@ import { WebView } from 'react-native-webview';
 const Map = () => {
   const [mapUrl, setMap] = useState()
 
-    useEffect(() => {
+  useEffect(() => {
     const fetchMap = async () => {
       // get maq
       await axios.get('https://western-sciren-server.vercel.app/api/map/')
         .then(res => {
-          console.log(res.data.url)
           setMap(res.data.url);
         })
         .catch(error => {

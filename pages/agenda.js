@@ -5,22 +5,18 @@ import {
   Text,
   FlatList,
   SafeAreaView,
-  ImageBackground,
   TouchableOpacity,
   Modal,
   TextInput,
-  Image,
+  Image
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import AgendaEventCard from '../components/agendaEventCard';
 import EventCard from '../components/eventCard';
 import { LinearGradient } from 'expo-linear-gradient';
 import {
   remove_popup,
-  remove,
-  add,
-  add_white,
+  add
 } from '../images/images';
 
 const axios = require('axios').default;
@@ -34,7 +30,6 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
 
   const [stageShows, setStageShows] = useState([])
   const [booths, setBooths] = useState([])
-  const [loading, setLoading] = useState(false)
 
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -109,9 +104,9 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
     };
 
     return (
-      <Modal animationType="slide" transparent={true} visible={modalType} 
-             onRequestClose={handleModalHide}
-             onDismiss={handleModalHide}
+      <Modal animationType="slide" transparent={true} visible={modalType}
+        onRequestClose={handleModalHide}
+        onDismiss={handleModalHide}
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
@@ -126,9 +121,10 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
             <View style={styles.modalBody}>
               <TextInput
                 style={styles.searchBox}
-                placeholder="Search..."
-                onChangeText={text => setSearchQuery(text)}
+                onChangeText={setSearchQuery}
                 value={searchQuery}
+                placeholder="Search..."
+                placeholderTextColor="#8d8d8d"
               />
               <FlatList
                 style={styles.flatList}
@@ -138,7 +134,6 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
                 )}
                 keyExtractor={(item) => item._id.toString()}
               />
-              
             </View>
           </View>
         </View>
@@ -154,8 +149,6 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      setLoading(true)
-
       // get Events
       await axios.get('https://western-sciren-server.vercel.app/api/data/getAllEvents')
         .then(res => {
@@ -168,8 +161,6 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
         .catch(error => {
           console.error(error);
         });
-
-      setLoading(false)
     }
 
     fetchEvents();
@@ -201,14 +192,14 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
                 </View>
               </View>
             ) : (
-            <FlatList
-              style={styles.flatList}
-              data={sortedShowData(agendaStageShows)}
-              renderItem={({ item }) => (
-                <AgendaEventCard item={item} removeFromAgendaLists={removeFromAgendaLists} />
-              )}
-              keyExtractor={(item) => item._id.toString()}
-            />)}
+              <FlatList
+                style={styles.flatList}
+                data={sortedShowData(agendaStageShows)}
+                renderItem={({ item }) => (
+                  <AgendaEventCard item={item} removeFromAgendaLists={removeFromAgendaLists} />
+                )}
+                keyExtractor={(item) => item._id.toString()}
+              />)}
           </View>
 
           <View style={styles.stageBooth}>
@@ -230,14 +221,14 @@ const Agenda = ({ agendaChange, handleAgendaChange }) => {
                 </View>
               </View>
             ) : (
-            <FlatList
-              style={styles.flatList}
-              data={agendaBooths}
-              renderItem={({ item }) => (
-                <AgendaEventCard item={item} removeFromAgendaLists={removeFromAgendaLists} />
-              )}
-              keyExtractor={(item) => item._id.toString()}
-            />)}
+              <FlatList
+                style={styles.flatList}
+                data={agendaBooths}
+                renderItem={({ item }) => (
+                  <AgendaEventCard item={item} removeFromAgendaLists={removeFromAgendaLists} />
+                )}
+                keyExtractor={(item) => item._id.toString()}
+              />)}
           </View>
         </View>
       </LinearGradient>
@@ -372,7 +363,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: "5%",
-    width: "100%"
+    width: "100%",
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
   },
 
   modalHeaderText: {

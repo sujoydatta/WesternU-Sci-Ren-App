@@ -5,22 +5,16 @@ import {
   Image,
   Modal,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   TouchableHighlight
 } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   remove_popup,
   remove,
-  add,
-  add_white,
 } from '../images/images';
 
 const AgendaEventCard = ({ item, removeFromAgendaLists }) => {
   let { _id: id, title, description, time, isStageShow, performedBy, boothNo } = item
-  let today = new Date()
-  let past = today > new Date(time)
   let eventTime = ''
 
   if (time) {
@@ -33,7 +27,7 @@ const AgendaEventCard = ({ item, removeFromAgendaLists }) => {
     <View>
       <TouchableOpacity onPress={() => setInfoModalVisible(true)}>
         <View style={styles.outterContainer}>
-          <View key={id} style={[styles.eventCardContainer, past ? styles.eventPast : styles.eventNotPast]}>
+          <View key={id} style={[styles.eventCardContainer]}>
             <Text style={styles.eventText}>{isStageShow === false ? title : eventTime}</Text>
             <View style={styles.titleDescriptionContainer}>
               <Text style={styles.eventName}>{isStageShow === false ? description : title}</Text>
@@ -46,13 +40,13 @@ const AgendaEventCard = ({ item, removeFromAgendaLists }) => {
           </View>
         </View>
       </TouchableOpacity>
-      <Modal animationType="slide" transparent={true} visible={infoModalVisible} 
-             onRequestClose={() => {setInfoModalVisible(infoModalVisible);}}
+      <Modal animationType="slide" transparent={true} visible={infoModalVisible}
+        onRequestClose={() => { setInfoModalVisible(infoModalVisible); }}
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <View style={styles.modalHeader}>
-              <Text style={styles.modalHeaderText}>{ title }</Text>
+              <Text style={styles.modalHeaderText}>{title}</Text>
               <View style={styles.headerIconContainer}>
                 <TouchableOpacity onPress={() => setInfoModalVisible(false)}>
                   <Image source={remove_popup} style={styles.stageBoothremoveIcon} />
@@ -92,11 +86,6 @@ const styles = StyleSheet.create({
     margin: 5,
     alignItems: 'center',
     height: "85%",
-  },
-  eventPast: {
-    backgroundColor: "#4f2684",
-  },
-  eventNotPast: {
     backgroundColor: "#4f2684",
   },
   eventName: {
@@ -111,12 +100,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   titleDescriptionContainer: {
-    flex: 5,
-  },
-  timeContainer: {
-    flex: 2,
-    justifyContent: 'center',
-    alignItems: 'center'
+    flex: 4,
+    paddingRight: 2,
   },
   plusButtonView: {
     justifyContent: 'center',
@@ -141,6 +126,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
+
   modalContent: {
     width: '90%',
     backgroundColor: '#fff',
@@ -154,7 +140,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: "5%",
-    width: "100%"
+    width: "100%",
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
   },
 
   modalHeaderText: {

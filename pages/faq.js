@@ -2,17 +2,14 @@ import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
-  ImageBackground,
   SafeAreaView,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-const axios = require('axios').default;
 import { LinearGradient } from 'expo-linear-gradient';
-
 import FaqCard from '../components/faqCard';
-import { bgImage } from '../images/images';
+const axios = require('axios').default;
 
 const Faq = () => {
   const [faq, setFaq] = useState([])
@@ -25,7 +22,6 @@ const Faq = () => {
       // get faq
       await axios.get('https://western-sciren-server.vercel.app/api/faq/getAllFaq')
         .then(res => {
-          console.error(res.data);
           setFaq(res.data);
         })
         .catch(error => {
