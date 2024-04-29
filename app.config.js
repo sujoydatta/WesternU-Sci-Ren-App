@@ -2,7 +2,7 @@ module.exports = {
   "expo": {
     "name": "Western Sci Rendezvous",
     "slug": "WesternUSciRenApp",
-    "version": "1.1.3",
+    "version": "1.1.4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -19,7 +19,7 @@ module.exports = {
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "app.westernuscirenapp",
-      "buildNumber": "1.1.3",
+      "buildNumber": "1.1.4",
       "config": {
         "googleMapsApiKey": "AIzaSyAhhfrvIcc4WgJnb5IS2IQW91PDfY1zu78"
       },
@@ -34,10 +34,10 @@ module.exports = {
       },
       "package": "app.westernuscirenapp",
       "googleServicesFile": process.env.googleServices,
-      "versionCode": 23,
+      "versionCode": 24,
       "config": {
         "googleMaps": {
-          "apiKey" : "AIzaSyAhhfrvIcc4WgJnb5IS2IQW91PDfY1zu78"
+          "apiKey": "AIzaSyAhhfrvIcc4WgJnb5IS2IQW91PDfY1zu78"
         }
       },
       "permissions": [
